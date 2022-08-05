@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>        
+        <script>
+
+            let ps = 0;
+            let cs = 0;
+
+            function getComputerChoice()
+            {
+                let elemnts = ['Rock','Paper','Scissor'];
+                let rnum = Math.floor(Math.random()*elemnts.length);
+                let compChoice = elemnts[rnum];
+                return compChoice;
+            }
+
+            function winner(playerSelection , computerSelection) {
+                let winnermsg;
+
+                if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'rock')
+                {   
+                    
+                    return "The game is a Rock tie";
+                }
+                else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'paper')
+                {   
+                
+                    return "The game is a paper tie";
+                }
+                else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'scissor')
+                {   
+                    
+                    return "The game is a scissor tie";
+                }
+                else if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'paper')
+                {   
+                    cs++;
+                    return "Computer Wins the game cos it is Paper";
+                }
+                else if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissor')
+                {
+                    ps++;
+                    return "You win cos Rock beats Scissor!";
+                }
+                else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock')
+                {
+                    ps++;
+                    return "You Win Cos paper beats Rock!";
+                }
+                else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'scissor')
+                {
+                    cs++;
+                    return "Computer Wins cos scissor beats paper";
+                }
+                else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'rock')
+                {
+                    cs++;
+                    return "Computer wins cos rock beats scissor";
+                }
+                else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')
+                {
+                    ps++;
+                    return "You win cos scissor beats paper!";
+                }
+                else
+                return 'Pls input a valid choice of 3 options!'
+                
+            }
+
+            function game(){
+                for(let i=0; (cs < 5 && ps < 5);i++){
+
+                    let computerSelection = getComputerChoice();
+                    console.log(`Choice of computer - ${computerSelection}`);
+
+                    let playSelection = prompt('Enter your choice-');
+                    console.log(`The player Selection is - ${playSelection}`);
+
+                    let gameResult = winner(playSelection,computerSelection);
+                    console.log(`Result - ${gameResult}`);
+                    console.log(`CS = ${cs} | PS = ${ps}`);
+                }
+                if(cs>ps)
+                {
+                    alert(`Computer Wins the game! CS = ${cs} | PS = ${ps}`);
+                }
+                else if(ps>cs){
+                    alert(`PLayer WIns! CS = ${cs} | PS = ${ps}`);
+                }
+                else
+                alert(`Its a Tie! CS = ${cs} | PS = ${ps}`);
+            }
+            
+            game();
+
+        </script>
+    </body>
+</html>
