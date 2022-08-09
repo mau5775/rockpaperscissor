@@ -6,14 +6,53 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>        
+        <h1 style="text-align: center;">Players vs Computer</h1>
+        <div class="container">
+            <div class="left-side">
+                    <div class="playerButtons">
+                        <button id="rock">Rock</button>
+                        <button id="paper">Paper</button>
+                        <button id="scissor">Scissor</button>
+                    </div>
+                    <div class="playerWeapon">
+                        <h3 class="playerChoice">Player Weapon</h3>
+                    </div>
+                    <div class="computerWeapon">
+                        <h3 class="computerChoice">Computer Weapon</h3>
+                    </div>
+                    <div class="resultWinner">
+                        <h3 class="resultGame">Result</h3>
+                    </div>
+                    <div>
+                        <h2 class="finalResult"></h2>
+                    </div>
+                    <div class="buttonRestart">
+                        
+                    </div>
+            </div>
+            <div class="right-side">
+                <div class="roundCount">
+                    <h2>Round</h2>
+                </div>
+                <div class="playerScore">
+                    <h2>Player Score</h2>
+                </div>
+                <div class="computerScore">
+                    <h2>Computer Score</h2>
+                </div>
+            </div>
+        </div>
         <script>
-
+            let rc = 0;
             let ps = 0;
             let cs = 0;
-
+            let playerSelection = '';
+            let computerSelection = '';
+            
+            
             function getComputerChoice()
             {
                 let elemnts = ['Rock','Paper','Scissor'];
@@ -21,86 +60,236 @@
                 let compChoice = elemnts[rnum];
                 return compChoice;
             }
-
+           
             function winner(playerSelection , computerSelection) {
                 let winnermsg;
 
                 if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'rock')
                 {   
-                    
+                    ++cs,++ps;
                     return "The game is a Rock tie";
+                    
                 }
                 else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'paper')
                 {   
-                
+                    ++cs,++ps;
                     return "The game is a paper tie";
+                    
                 }
                 else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'scissor')
                 {   
-                    
+                    ++cs,++ps;
                     return "The game is a scissor tie";
+                    
                 }
                 else if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'paper')
                 {   
-                    cs++;
+                    ++cs;
                     return "Computer Wins the game cos it is Paper";
                 }
                 else if(playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissor')
                 {
-                    ps++;
+                    ++ps;
                     return "You win cos Rock beats Scissor!";
                 }
                 else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock')
                 {
-                    ps++;
+                    ++ps;
                     return "You Win Cos paper beats Rock!";
                 }
                 else if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'scissor')
                 {
-                    cs++;
+                    ++cs;
                     return "Computer Wins cos scissor beats paper";
                 }
                 else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'rock')
                 {
-                    cs++;
+                    ++cs;
                     return "Computer wins cos rock beats scissor";
                 }
                 else if(playerSelection.toLowerCase() === 'scissor' && computerSelection.toLowerCase() === 'paper')
                 {
-                    ps++;
+                    ++ps;
                     return "You win cos scissor beats paper!";
                 }
                 else
                 return 'Pls input a valid choice of 3 options!'
                 
+            }   
+
+            function scoreboard(btn) {
+                if(cs===5 || ps===5)
+                {
+                if(cs>ps)
+                {
+                    let compWins = document.querySelector('.finalResult');
+                    compWins.textContent = `Computer Wins!\n Computer - ${cs} | Player - ${ps}`;
+                    btn.preventDefault();
+                }
+                else if(ps>cs)
+                {
+                    let playerWins = document.querySelector('.finalResult');
+                    playerWins.textContent = `Player Wins!\n Computer - ${cs} | Player - ${ps}`;
+                }
+                }
+                else if(cs===5 && ps===5)
+                {
+                    let tieGame = document.querySelector('.finalResult');
+                    tieGame.textContent = `Tie Game!\n Computer - ${cs} | Player - ${ps}`;
+                }
             }
 
             function game(){
-                for(let i=0; (cs < 5 && ps < 5);i++){
+                //for(let i=0; (cs < 5 && ps < 5);i++){
 
-                    let computerSelection = getComputerChoice();
-                    console.log(`Choice of computer - ${computerSelection}`);
+                    //computerSelection = getComputerChoice();
+                    //console.log(`Choice of computer - ${computerSelection}`);
 
-                    let playSelection = prompt('Enter your choice-');
-                    console.log(`The player Selection is - ${playSelection}`);
+                    const buttons = document.querySelectorAll('.playerButtons button');
+                    buttons.forEach(btn =>{
+                     btn.addEventListener('click',()=>{
+                        playerSelection = btn.id;
+                        let playerText = document.querySelector('.playerChoice');
+                        playerText.textContent = ` Player Weapon - ${playerSelection}`;
+                        
+                        computerSelection = getComputerChoice();
+                        let computerText = document.querySelector('.computerChoice');
+                        computerText.textContent =` Computer Weapon - ${computerSelection}`;
 
-                    let gameResult = winner(playSelection,computerSelection);
-                    console.log(`Result - ${gameResult}`);
-                    console.log(`CS = ${cs} | PS = ${ps}`);
-                }
-                if(cs>ps)
-                {
-                    alert(`Computer Wins the game! CS = ${cs} | PS = ${ps}`);
-                }
-                else if(ps>cs){
-                    alert(`PLayer WIns! CS = ${cs} | PS = ${ps}`);
-                }
-                else
-                alert(`Its a Tie! CS = ${cs} | PS = ${ps}`);
-            }
+                    //console.log(`The player Selection is - ${playerSelection}`);
             
-            game();
 
+                    let gameResult = winner(playerSelection,computerSelection);
+                    //console.log(`Result - ${gameResult}`);
+                    //console.log(`CS = ${cs} | PS = ${ps}`);
+                    let resultText = document.querySelector('.resultGame');
+                    resultText.textContent = ` Game Result - ${gameResult}`;
+
+                    const rcount = document.querySelector('.roundCount');
+                    const pscore = document.querySelector('.playerScore');
+                    const cscore = document.querySelector('.computerScore');
+
+                    const roundCounter = document.createElement('h4');
+                    roundCounter.textContent = ++rc;
+                    rcount.appendChild(roundCounter);
+
+                    const pScoreCounter = document.createElement('h4');
+                    pScoreCounter.textContent = ps;
+                    pscore.appendChild(pScoreCounter);
+
+                    const cScoreCounter = document.createElement('h4');
+                    cScoreCounter.textContent = cs;
+                    cscore.appendChild(cScoreCounter);
+
+                    if(cs===5 || ps===5)
+                    {
+                        if(cs>ps)
+                        {
+                            let compWins = document.querySelector('.finalResult');
+                            compWins.textContent = `Computer Wins!\n Computer - ${cs} | Player - ${ps}`;
+                            
+                            document.getElementById('rock').disabled = true;
+                            document.getElementById('paper').disabled = true;
+                            document.getElementById('scissor').disabled = true;
+                            
+                            let startNewPos = document.querySelector('.buttonRestart');
+                            let startNew = document.createElement('button');
+                            startNew.textContent = "Restart";
+                            startNew.setAttribute('id','restartBtn');
+                            startNewPos.appendChild(startNew);
+                            startNew.addEventListener('click',restartGame);
+                           
+                            
+                        }
+                        else if(ps>cs)
+                        {
+                            let playerWins = document.querySelector('.finalResult');
+                            playerWins.textContent = `Player Wins!\n Computer - ${cs} | Player - ${ps}`;
+                            
+                            document.getElementById('rock').disabled = true;
+                            document.getElementById('paper').disabled = true;
+                            document.getElementById('scissor').disabled = true;
+                           
+                            let startNewPos = document.querySelector('.buttonRestart');
+                            let startNew = document.createElement('button');
+                            startNew.textContent = "Restart";
+                            startNew.setAttribute('id','restartBtn');
+                            startNewPos.appendChild(startNew);
+                            startNew.addEventListener('click',restartGame);
+                           
+                            
+                        }
+                    }
+                    if(cs===5 && ps===5)
+                    {
+                        let tieGame = document.querySelector('.finalResult');
+                        tieGame.textContent = `Tie Game!\n Computer - ${cs} | Player - ${ps}`;
+
+                        document.getElementById('rock').disabled = true;
+                        document.getElementById('paper').disabled = true;
+                        document.getElementById('scissor').disabled = true;
+                        
+                        let startNewPos = document.querySelector('.buttonRestart');
+                        let startNew = document.createElement('button');
+                        startNew.textContent = "Restart";
+                        startNew.setAttribute('id','restartBtn');
+                        startNewPos.appendChild(startNew);
+                        startNew.addEventListener('click',restartGame);
+                        
+                    }
+                    
+                //}
+            })}     
+                );
+        }
+
+        function restartGame(btnid){
+            ps = 0;
+            cs = 0;
+            rc = 0;
+
+            document.getElementById('rock').disabled = false;
+            document.getElementById('paper').disabled = false;
+            document.getElementById('scissor').disabled = false;
+
+            let resetResult = document.querySelector('.finalResult');
+            resetResult.textContent = ``;
+
+            let playerText = document.querySelector('.playerChoice');
+            playerText.textContent = ` Player Weapon - `;
+
+            let computerText = document.querySelector('.computerChoice');
+            computerText.textContent =` Computer Weapon - `;
+
+            let resultText = document.querySelector('.resultGame');
+            resultText.textContent = ` Game Result - `;
+
+            const rcount = document.querySelector('.roundCount');
+            rcount.textContent = "";
+                const roundCounter = document.createElement('h2');
+                    roundCounter.textContent = "Round";
+                    rcount.appendChild(roundCounter);
+            const pscore = document.querySelector('.playerScore');
+            pscore.textContent = "";
+                const pscorep = document.createElement('h2');
+                    pscorep.textContent = "Player Score";
+                    pscore.appendChild(pscorep);
+            const cscore = document.querySelector('.computerScore');
+            cscore.textContent = "";
+                const cscorec = document.createElement('h2');
+                    cscorec.textContent = "Computer Score";
+                    cscore.appendChild(cscorec);
+
+
+            document.getElementById('restartBtn').remove();
+        }
+            
+             
+           game();
+          
+           
+
+            
         </script>
     </body>
 </html>
