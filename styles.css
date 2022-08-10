@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.left-side{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+.playerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-side {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+}
+
+.roundCount {
+    padding: 10px;
+}
+
+.playerScore {
+    padding: 10px;
+}
+
+.computerScore {
+    padding: 10px;
+}
+
+button {
+    padding: 8px;
+    margin: 8px;
+}
