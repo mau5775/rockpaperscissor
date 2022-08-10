@@ -1,3 +1,8 @@
+body {
+    background-color: #152238;
+    color: rgb(209, 209, 209);
+}
+
 .container {
     display: flex;
     align-items: flex-start;
@@ -15,6 +20,53 @@
     align-items: center;
 }
 
+.playbtn {
+    position: relative;
+    background-color: #04AA6D;
+    border: none;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 15px;
+    width: 120px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  .playbtn:after {
+    content: "";
+    background: #90EE90;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .playbtn:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+
+#restartBtn {
+    background-color: lightcoral;
+    width: 120px;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    color: whitesmoke;
+    font-size: 20px;
+    border: none;
+}
+
 .right-side {
     display: flex;
     align-items: top;
@@ -23,14 +75,17 @@
 
 .roundCount {
     padding: 10px;
+    text-align: center;
 }
 
 .playerScore {
     padding: 10px;
+    text-align: center;
 }
 
 .computerScore {
     padding: 10px;
+    text-align: center;
 }
 
 button {
